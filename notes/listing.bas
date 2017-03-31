@@ -1,8 +1,9 @@
-20 	init_values()
-	clr_scrn()
-	set_border_color(BLACK)
-	set_border_color(RED)
-	prepare_consts_to_load()
+20   
+  init_values()
+  clr_scrn()
+  set_border_color(BLACK)
+  set_border_color(RED)
+  prepare_consts_to_load()
 
 REM FIXME do_something()
 30 for b=1 to 3
@@ -19,9 +20,10 @@ REM FIXME do_something()
 140 next b
 
 REM probably showing menu
-200 	v=1
-	unknown_dowithmem()
-	maybe_wait_2sec()
+200   
+  v=1
+  unknown_dowithmem()
+  maybe_wait_2sec()
 
 260 screen_move_down_6times()
 
