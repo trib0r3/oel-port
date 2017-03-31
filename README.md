@@ -34,18 +34,36 @@ Latest binaries:
 
 ## About
 
-Port of *Oel* game from Commodore64 (BASIC) to modern processors (C++ & SFML)
+Port of *Oel* game from Commodore64 (BASIC) to modern processors (C++ & SFML).
 
+### Files
 
-### Usefull links
+Project is separated into folders:
+
+```
+├── notes
+├── obj
+└── src
+```
+
+Interesting for you may be probably:
+
+1. [notes](notes/) - containing files with my personal research (i.e. more priendy pseudo-basic code, similar to C code, etc.)
+2. [src](src/) - containing translated game code into C++
+
+### Useful links
+
+Why so many links? Because Commodore & BASIC is bad docummented, every page contains different piece of 'good to know' information.
 
 1. [BASIC Commands](https://www.c64-wiki.com/wiki/Category:BASIC-Command)
 2. [Commodore Memory Map](http://sta.c64.org/cbm64mem.html)
 2. [C64 emulator](vice-emu.sourceforge.net) *(needed only for testing original ROM)*
+2. [Wikipedia Keywords](https://en.wikipedia.org/wiki/BASIC#Typical_BASIC_keywords)
+3. [Commodore Manual](http://www.commodore.ca/manuals/pdfs/Commodore_Basic_4_Users_Reference%20Manual.pdf)
+4. [BASIC Ref Manual](http://bitsavers.informatik.uni-stuttgart.de/pdf/phaseOneSystems/oasis/BASIC_Language_Reference_Manual_Mar80.pdf)
 
 
 ## License
 
 Project is under [BSD-3](LICENSE.md) License
-
 

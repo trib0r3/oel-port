@@ -1,0 +1,41 @@
+src: https://www.c64-wiki.com/wiki/control_character
+
+Control       | Keycombination              | Description                      | Wiki-Syntax
+Char          |                             |                                  | 
+--------------|-----------------------------|----------------------------------|--------------
+              | <SHIFT>+<CLR/HOME>          | clear screen                     | {clr}
+              | <CLR/HOME>                  | cursor links oben psoitionieren  | {home}
+              | <CRSR links/rechts>         | cursor a postion right           | {cursor right}
+              | <SHIFT>+<CRSR links/rechts> | cursor a postion left            | {cursor left}
+              | <CRSR oben/unten>           | cursor a postion down            | {cursor down}
+              | <SHIFT>+<CRSR oben/unten>   | cursor a postion up              | {cursor up}
+              | <CTRL>+<1>                  | char-color black                 | {blk}
+              | <CTRL>+<2>                  | char-color white                 | {wht}
+              | <CTRL>+<3>                  | char-color red                   | {red}
+              | <CTRL>+<4>                  | char-color cyan                  | {cyn}
+              | <CTRL>+<5>                  | char-color purple                | {pur}
+              | <CTRL>+<6>                  | char-color green                 | {grn}
+              | <CTRL>+<7>                  | char-color blue                  | {blu}
+              | <CTRL>+<8>                  | char-color yellow                | {yel}
+              | <CTRL>+<9>                  | reversmodus on                   | {rvs on}
+              | <CTRL>+<0>                  | reversmodus off                  | {rvs off}
+              | <C=>+<1>                    | char-color orange                | {orange}
+              | <C=>+<2>                    | char-color brown                 | {brown}
+              | <C=>+<3>                    | char-color light-red             | {ligh-red}
+              | <C=>+<4>                    | char-color grey 1 / dark-grey    | {darkgrea}
+              | <C=>+<5>                    | char-color grey 2                | {grey}
+              | <C=>+<6>                    | char-color light-green           | {lighgreen}
+              | <C=>+<7>                    | char-color light-blue            | {lightblue}
+              | <C=>+<8>                    | char-color grey 3 / light-grey   | {lightgrey}
+              | <F1>                        |                                  | {f1}
+              | <SHIFT>+<F1>                |                                  | {f2}
+              | <F3>                        |                                  | {f3}
+              | <SHIFT>+<F3>                |                                  | {f4}
+              | <F5>                        |                                  | {f5}
+              | <SHIFT>+<F5>                |                                  | {f6}
+              | <F7>                        |                                  | {f7}
+              | <SHIFT>+<F7>                |                                  | {f8}
+              | <INST/DEL>*                 | delte 1 char to the left side    | {del}
+              | <SHIFT>+<INST/DEL>          | insert 1 char to the right side  | {inst}
+              | <RUN/STOP>*                 |                                  | {run/stop}
+

@@ -1,0 +1,11 @@
+src: https://www.c64-wiki.com/wiki/Color
+
++=======+============+
+| VALUE |    COLOR   |
++-------+------------+
+|   0   |    BLACK   |
+|   1   |    WHITE   |
+|   2   |     RED    |
++-------+------------+
+
+
