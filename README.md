@@ -43,12 +43,14 @@ Project is separated into folders:
 ```
 ├── notes
 ├── obj
+├── scripts
 └── src
 ```
 
 Interesting for you may be probably:
 
 1. [notes](notes/) - containing files with my personal research (i.e. more priendy pseudo-basic code, similar to C code, etc.)
+2. [scripts](scripts/) - containing helper-scripts
 2. [src](src/) - containing translated game code into C++
 
 ### Useful links

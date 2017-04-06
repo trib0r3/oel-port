@@ -39,3 +39,4 @@ Char          |                             |                                  |
               | <SHIFT>+<INST/DEL>          | insert 1 char to the right side  | {inst}
               | <RUN/STOP>*                 |                                  | {run/stop}
 
+

@@ -1,25 +1,51 @@
-gosub 12000
-gosub 1460    -> init_values()
-gosub 1900    -> prepare_consts_to_load()
-gosub 28000
-gosub 29000
-gosub 33000
-gosub 37000
-gosub 50000   -> unkown_dowithmem()
-gosub 51000
-gosub 52000
-gosub 58000
-gosub 59000
-gosub 59100
-gosub 59400
-gosub 59900
-gosub 60000   -> screen_move_down_6times()
-gosub 60100
-gosub 60200
-gosub 60300   -> maybe_wait_2sec()
+for t=it from FROM 
+    to TO: next it	-> terminate_prev_early_exit_loop(it=t, from=1, to=90)
+
+gosub 1460 		-> init_values()
+gosub 1900		-> prepare_consts_to_load()
+gosub 3500		-> menu_next_player()
+gosub 12000		-> unknown_print_magic()
+gosub 28000		-> callback_from_drill_rigging()
+gosub 29000		-> callback_from_drill_rigging2()
+gosub 30000		-> menu_oil_fields()
+gosub 31000		-> menu_pump_company()
+gosub 32000		-> menu_tanks_company()
+gosub 33000		-> maybe_change_prices()
+gosub 35000		-> menu_sabotage_operation()
+gosub 37000		-> menu_drill_company()
+gosub 38000		-> menu_drill_rigging()
+gosub 39000		-> menu_pumps()
+gosub 40000		-> menu_tanks()
+gosub 42000		-> menu_price_fix()
+gosub 50000		-> unknown_dowithmem()
+gosub 51000		-> unknown_set_values2()
+gosub 52000		-> unknown_set_values()
+gosub 58000		-> set_new_price()
+gosub 59000		-> maybe_buy_something()
+gosub 59100		-> make_loan_or_loose()
+gosub 59400		-> print_player_wallet()
+gosub 59900		-> select_company()
+gosub 60000		-> screen_move_down_6times()
+gosub 60100		-> maybe_wait_2sec_2()
+gosub 60200		-> make_menu_choice()
+gosub 60300		-> maybe_wait_2sec()
 
 
-poke 53280    -> set_border_color(color)
-poke 53281    -> set_inner_color(color)
+poke 53280 		-> set_border_color(color)
+poke 53281		-> set_inner_color(color)
+poke 53272 <val>	-> set_mem_registers(val)
+
+
+print "{home}"		-> mov_cursor_upp_left()
+print "{<num> up}"	-> mov_cursor_up(lines_num=1)
+print "{<num> down}"	-> mov_cursor_down(lines_num=1)
+print "{<num> rght}"	-> mov_cursor_rght(offset=1)
+print "{<num> left}"	-> mov_cursor_left(offset=1)
+
+print "{rvon}<str>"	-> print_black_on_white(string)
+print "{rvof}<str>"	-> print_white_on_black(string) (default)
+print "{clr}		-> clear_screen(color)
+
+tab(n)			-> allign_print2column(column_num)
 
 

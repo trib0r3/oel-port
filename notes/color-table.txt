@@ -6,6 +6,9 @@ src: https://www.c64-wiki.com/wiki/Color
 |   0   |    BLACK   |
 |   1   |    WHITE   |
 |   2   |     RED    |
+|   3   |    CYAN    |
+|   4   |    VIOLET  |
+|  14   | LIGHT_BLUE |
 +-------+------------+
 
 

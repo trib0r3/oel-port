@@ -1,0 +1,68 @@
+GLOBALS:
+sz		-> int players_count 		(at addr 450?)
+ra$		-> str concern_name 
+		   = "bohr & pump & sohn"
+k		-> int start_money
+l1		int ???
+rz		-> int current_year (init = 1983)
+s$		-> char menu_choice
+
+a1$		str
+a2$		str
+a3$		str
+a4$		str = "Which is to be sold"
+r		-> int round_num
+l
+a
+
+h
+th
+tl
+gx		int (from user)
+gy		int (from user)
+dt
+e2		int price of ???
+
+
+ITERATORS:
+b
+t
+tt
+k
+ox		range: [1,100]
+ts
+z
+z9
+
+ARRAYS:
+ab(13)
+bd(13)
+bm(13)
+
+bf$(13)		
+		INFO:
+		strings (services/products?)
+
+bp(13)		int
+bt(13)		int
+fb(13)
+f(13)
+fm(13)		int
+pa(13)
+ta(13)
+rp(37)		int, max array eq 20
+gf(12)
+gg(12)
+
+pf$(?=2)	str array
+pf(?=2)		int array
+
+tg$(?=4)	str array
+tp(?=4)		int array
+tw(?=4)		int array
+b$(?=3)		-> str company_name
+bg(?=3)		-> int maybe_company_cost
+ks(sz)		-> int[players_count] player_money
+sn$(sz)		-> str[players_count] player_name
+bk(sz)		-> int[players_count] player_bankloan
+
