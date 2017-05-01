@@ -1,1 +1,51 @@
-# nothing here, intetionally
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+src/.idea/
+src/.idea/**/workspace.xml
+src/.idea/**/tasks.xml
+src/.idea/dictionaries
+
+# Sensitive or high-churn files:
+src/.idea/**/dataSources/
+src/.idea/**/dataSources.ids
+src/.idea/**/dataSources.xml
+src/.idea/**/dataSources.local.xml
+src/.idea/**/sqlDataSources.xml
+src/.idea/**/dynamic.xml
+src/.idea/**/uiDesigner.xml
+
+# Gradle:
+src/.idea/**/gradle.xml
+src/.idea/**/libraries
+
+# CMake
+cmake-build-debug/
+
+# Mongo Explorer plugin:
+src/.idea/**/mongoSettings.xml
+
+## File-based project format:
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# mpeltonen/sbtsrc/.idea plugin
+src/.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+src/.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+

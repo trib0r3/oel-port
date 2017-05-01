@@ -1,33 +1,31 @@
-#include <cstdio>
 #include <SFML/Graphics.hpp>
 
-// TODO load params from config
-const unsigned int SCRN_WIDTH  = 1280;
-const unsigned int SCRN_HEIGHT = 720;
 
-const char* GAME_TITLE = "Oel Pompowacze (port by shead)";
+int main() {
 
-int main(int argc, char** argv)
-{
-  sf::RenderWindow window(sf::VideoMode(SCRN_WIDTH, SCRN_HEIGHT), 
-                          GAME_TITLE,
-                          sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(640,480,32),"Hello SFML");
 
-  bool exit = false;
-  while(!exit)
-  {
-    sf::Event event;
-    while(window.pollEvent(event))
-    {
-      if(event.type == sf::Event::Closed)
-      {
-        exit = true;
-      }
+    sf::Font font;
+    font.loadFromFile("OpenSans-Bold.ttf");
+
+    sf::Text text("Hello World",font,11);
+    text.setCharacterSize(32);
+    text.setPosition(window.getSize().x/2 - text.getGlobalBounds().width/2,
+                     window.getSize().y/2 - text.getGlobalBounds().height/2);
+
+
+    while(window.isOpen()){
+
+        sf::Event event;
+        while(window.pollEvent(event)) {
+            if(event.type == sf::Event::Closed){
+                window.close();
+            }
+
+            window.clear(sf::Color::Black);
+            window.draw(text);
+            window.display();
+        }
     }
-
-    window.clear();
-    window.display();
-  }
-
-  return 0;
+    return 0;
 }
