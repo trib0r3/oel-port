@@ -44,14 +44,16 @@ Project is separated into folders:
 ├── notes
 ├── obj
 ├── scripts
-└── src
+├── src
+└── third-party
 ```
 
-Interesting for you may be probably:
+Interesting for you may be:
 
 1. [notes](notes/) - containing files with my personal research (i.e. more priendy pseudo-basic code, similar to C code, etc.)
 2. [scripts](scripts/) - containing helper-scripts
 2. [src](src/) - containing translated game code into C++
+2. [third-party](third-party/) - licenses for third party resources
 
 ### Useful links
 
@@ -67,5 +69,11 @@ Why so many links? Because Commodore & BASIC is bad docummented, every page cont
 
 ## License
 
-Project is under [BSD-3](LICENSE.md) License
+Project is under [BSD-3](LICENSE.md) License. Except resources listed in [3rd party modules](#3rd-party)
+
+### 3rd-party
+
+Following resources are coming from external sources:
+
+1. [PetMe Font](src/resources/Commodore-64-v6.3.ttf) is created by [KREATIVE SOFTWARE](http://www.dafont.com/devin-cook.d820) | [LICENSE](third-party/PetMeFontLicense.txt)
 
