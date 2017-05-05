@@ -51,8 +51,7 @@ REM maybe_draw_logo() TODO check during runtime
 	print_white_on_black() REM <- restore default mode
 110 next b:
 
-   for b=1 to 3
-120 	next b REM <- NOTICE: dead code? TODO check it! (delay?)
+120  terminate_prev_early_exit_loop(b, 1, 3)
 
    for b=1 to 3
 130 	print " "
@@ -104,21 +103,21 @@ REM get amount of players
 	print "one moment please"
 
 REM init game values (string)
-460 dim ab(13), bd(13), bm(13), bf$(13), bp(13), bt(13), fb(13), f(13), fm(13), pa(13)
-480 dim ta(13), rp(37), gf(12), gg(12)
+460 dim drilling_depth(13), drilling_price_for_500m(13), drilling_meters(13), drilling_scrn_strings(13), drill_price(13), maybe_drill_meters_limit(13), fb(13), f(13), fuel_source_limit(13), amount_of_pumps(13)
+480 dim amount_of_tanks(13), refinery_price(37), shipping_amount(12), gg(12)
 
-500 bf$(1)="Petrol station  "
-520 bf$(2)="?sparkling water ?"
-540 bf$(3)="deep-frozen"
-560 bf$(4)="dollars "
-580 bf$(5)="heavy pump    "
-600 bf$(6)="pipelines   "
-620 bf$(7)="happybohr    "	REM TODO translate later
-640 bf$(8)="immerdruck   "
-660 bf$(9)="lucky hole   "
-680 bf$(10)="black gold   "
-700 bf$(11)="overbubble   "
-720 bf$(12)="dauersprit   "
+500 drilling_scrn_strings(1)="Petrol station  "
+520 drilling_scrn_strings(2)="?sparkling water ?"
+540 drilling_scrn_strings(3)="deep-frozen"
+560 drilling_scrn_strings(4)="dollars "
+580 drilling_scrn_strings(5)="heavy pump    "
+600 drilling_scrn_strings(6)="pipelines   "
+620 drilling_scrn_strings(7)="happybohr    "
+640 drilling_scrn_strings(8)="immerdruck   "
+660 drilling_scrn_strings(9)="lucky hole   "
+680 drilling_scrn_strings(10)="black gold   "
+700 drilling_scrn_strings(11)="overbubble   "
+720 drilling_scrn_strings(12)="dauersprit   "
 
 740 vg$(1)="denvercream"
 760 vg$(2)="ewingoil      "
@@ -127,52 +126,52 @@ REM init game values (string)
 820 vg$(5)="sala to il inc  "
 840 vg$(6)="swimminoil inc"
 
-860 pf$(1)="bay. pumpe eg  "
-880 pf$(2)="dt.pumpenglueck"
+860 corpo_name(1)="bay. pumpe eg  "
+880 corpo_name(2)="dt.pumpenglueck"
 
 900 ra$="bohr & pump & sohn"
 
-920 tg$(1)="raff und gier  "
-940 tg$(2)="knaltex  gmbh  "
-960 tg$(3)="never come back"
-980 tg$(4)="oil on the road"
+920 firm_name(1)="raff und gier  "
+940 firm_name(2)="knaltex  gmbh  "
+960 firm_name(3)="never come back"
+980 firm_name(4)="oil on the road"
 
 REM randomize initial values of products?, TODO check in game
 1000 for t=1 to 12
-1020 	bp(t)=int(rnd(1)*70000)+30000
-1040 	fm(t)=int((bp(t)-(rnd(1)*9999)+1)*10)
+1020 	drill_price(t)=int(rnd(1)*70000)+30000
+1040 	fuel_source_limit(t)=int((drill_price(t)-(rnd(1)*9999)+1)*10)
 1060 next t
 
 1080 for t=1 to 12:
-	bt(t)=int(rnd(1)*3666)+1: 
+	maybe_drill_meters_limit(t)=int(rnd(1)*3666)+1: 
 	next t:
 
 REM  assign some single variables, partially random
      start_money=int(rnd(1)*100000)+100000
 1100 l1=int(rnd(1)*6)+1
-1120 fm(l1*2)=1200:fm(l1*2-1)=1400
+1120 fuel_source_limit(l1*2)=1200:fuel_source_limit(l1*2-1)=1400
 
 1140 for t=1 to 2
-1160 	pf(t)=int(rnd(1)*80000)+20000
+1160 	corpo_price(t)=int(rnd(1)*80000)+20000
 1180 next t
 
 1200 for t=1 to 4
-1220 	tp(t)=int(rnd(1)*55000)+25000
-1240 	tw(t)=int(tp(t)/10000)*3:
+1220 	firm_price(t)=int(rnd(1)*55000)+25000
+1240 	truck_number(t)=int(firm_price(t)/10000)*3:
      next t
 
-1260 rp(1)=int(rnd(1)*7)+7
+1260 refinery_price(1)=int(rnd(1)*7)+7
 
 REM init, assign values?
 1280 for t=2 to 34
-1300 	rp(t)=rp(t-1)+(int(rnd(1)*14)-7)
-1320 	if rp(t)<0 then 
-	   rp(t)=1:
+1300 	refinery_price(t)=refinery_price(t-1)+(int(rnd(1)*14)-7)
+1320 	if refinery_price(t)<0 then 
+	   refinery_price(t)=1:
 	   goto 1300 REM <- inner loop
 
 	REM  max value eq 20 TODO check in game
-1340 	if rp(t)>20 
-	   then rp(t)=20
+1340 	if refinery_price(t)>20 
+	   then refinery_price(t)=20
 1360 next t:
 
      for t=1 to 34 REM probably empty loop
@@ -260,7 +259,7 @@ REM get names of players
 
 2040 for t=1 to players_count
 2060 
-	input "      "; player_name(t):
+	input  "      "; player_name(t):
 	if len(player_name(t))>15 then 
 	   print "{down} zu lang{down}":
 	   goto 2060 REM try again enter name
@@ -312,7 +311,7 @@ REM print market schemes
 2560 for t=1 to 34:
 	poke l, 15:
 	REM draw & set some values?
-	for b=1 to rp(t)
+	for b=1 to refinery_price(t)
 2580 	   poke a, 21:
 	   poke 56218+t-(b*40), 4 REM color ram mem
 2600 	   poke h, 255:
@@ -330,7 +329,7 @@ REM print market schemes
 	print ;:
 	make_menu_choice():
 	for t=1 to 34:
-	   rp(t)=rp(t)/10: 
+	   refinery_price(t)=refinery_price(t)/10: 
 	next t
 3000 round_num=round_num+1:
 
@@ -440,25 +439,25 @@ REM: summary, game over
 REM callback from func below
 10000 print "{clr}":set_inner_color(ORANGE):set_border_color(BLACK)
 10020 print "{gry1}    print_black_on_white(){shif t-pound}print_white_on_black(){blk}{cbm-r}{gry1}print_black_on_white()_print_white_on_black(){blu}    print_black_on_white()UCCC{cbm-r}I print_white_on_black()  print_black_on_white(){blk}  o e l f e l d  print_white_on_black()"
-10040 print "{gry1}    print_black_on_white() print_white_on_black(){blk}]{gry1}print_black_on_white() print_white_on_black(){blu}    print_black_on_white(){cbm-q}{wht}CCC{cbm-x}{blu}JIprint_white_on_black()";:print tab(22)bf$(i)
+10040 print "{gry1}    print_black_on_white() print_white_on_black(){blk}]{gry1}print_black_on_white() print_white_on_black(){blu}    print_black_on_white(){cbm-q}{wht}CCC{cbm-x}{blu}JIprint_white_on_black()";:print tab(22)drilling_scrn_strings(i)
 10060 print "{gry1}    print_black_on_white() print_white_on_black(){blk}]{gry1}print_black_on_white() print_white_on_black(){blu}    print_black_on_white(){cbm-y}{blk}WW{blu}CC{blk}W{blu}Kprint_white_on_black()  {blk}{17 cbm-t}"
 10080 print tab(20)"print_black_on_white(){blk} b e s i t z e r print_white_on_black()"
-10090 if gg(i)<fm(i) then gf(i)=gf(i)+(8000*(pa(i)))
-10100 print tab(22)player_name(s):gg(i)=gg(i)+(8000*(pa(i)))
+10090 if gg(i)<fuel_source_limit(i) then shipping_amount(i)=shipping_amount(i)+(8000*(amount_of_pumps(i)))
+10100 print tab(22)player_name(s):gg(i)=gg(i)+(8000*(amount_of_pumps(i)))
 10120 print "    jahr {wht}"current_year;
 10140 print tab(20)"{blk}{17 cbm-t}"
-10160 print "{down} {blu}"ra$" -":print " raffinerieabnahmepreis = "rp(r)"${down}"
-10400 print "{blk} pumpenanzahl :"pa(i)
-10420 print "{lgrn} versandmenge :"gf(i)
-10440 print "{blk} tankwagen    :"ta(i)
-10460 print "{lgrn} lkwkapazitaet:"ta(i)*7000
+10160 print "{down} {blu}"ra$" -":print " raffinerieabnahmepreis = "refinery_price(r)"${down}"
+10400 print "{blk} pumpenanzahl :"amount_of_pumps(i)
+10420 print "{lgrn} versandmenge :"shipping_amount(i)
+10440 print "{blk} tankwagen    :"amount_of_tanks(i)
+10460 print "{lgrn} lkwkapazitaet:"amount_of_tanks(i)*7000
 10480 print "{blk} kapital      :"player_money(s)
-10500 if gg(i)>fm(i) then print "{down}   quelle erschoepft!"
-10505 if gf(i)<=0 then print "{down}";:make_menu_choice():return
-10510 if ta(i)= or a(i)=0 then print "{down}";:make_menu_choice():return
-10520 print :input" wieviel liter sollen weg";m
-10540 if m>gf(i)orm>ta(i)*7000 then print " zuviel{3 up}":goto 10520
-10560 player_money(s)=player_money(s)+(m*(rp(r))):gf(i)=gf(i)-m
+10500 if gg(i)>fuel_source_limit(i) then print "{down}   quelle erschoepft!"
+10505 if shipping_amount(i)<=0 then print "{down}";:make_menu_choice():return
+10510 if amount_of_tanks(i)= or a(i)=0 then print "{down}";:make_menu_choice():return
+10520 print :input " wieviel liter sollen weg";m
+10540 if m>shipping_amount(i)orm>amount_of_tanks(i)*7000 then print " zuviel{3 up}":goto 10520
+10560 player_money(s)=player_money(s)+(m*(refinery_price(r))):shipping_amount(i)=shipping_amount(i)-m
 10580 print "{blu} kapital      :"player_money(s)" $"
 10600 print "{down}";:make_menu_choice():return
 
@@ -475,7 +474,7 @@ REM:  func unknown_print_magic()
 12060 	print "  {blu}  print_black_on_white()     print_white_on_black(){shif t-pound}{gry2}print_black_on_white(){cbm-i}print_white_on_black(){blk}{2 cbm-t}";
 12080 	print tab(17)"{red}bohrung auf feld"
 12100 	print "  {blu}  print_black_on_white() print_white_on_black(){lred}{cbm-k}{blu}  {cbm-k}{lgrn}";
-12120 	print tab(17)bf$(i)
+12120 	print tab(17)drilling_scrn_strings(i)
 12140 	print "  {blu}  print_black_on_white() print_white_on_black()   {cbm-v}   "
 12160 	print "  {blk} UK";
 12180 	print tab(12)"{lblu}besitzer:{blk}"player_name(s)
@@ -483,18 +482,18 @@ REM:  func unknown_print_magic()
 12220 	print " ihr oelfeldlagerverwalter teilt ihnen"
 12240 	print " folgende daten mit:{down}"
 
-12260 	if bm(i)<=0 then 
+12260 	if drilling_meters(i)<=0 then 
 	   print "{red} bohrung unmoeglich,  da kein gestaenge"
-12280 	if bm(i)<=0 then 
+12280 	if drilling_meters(i)<=0 then 
 	   print " mehr  or anden. wir brauchen nachschub!":
 	   goto 12320
 
-12300 	bm(i)=bm(i)-500:
+12300 	drilling_meters(i)=drilling_meters(i)-500:
 	ab(i)=ab(i)+500-fnz(30)
 
 12320 	print " {grn}bisherige bohrtiefe    :"ab(i)"m"
-12340 	print "{down} bohrgestaenge noch fuer:"bm(i)"m"
-12360 	if ab(i)>=bt(i) then 
+12340 	print "{down} bohrgestaenge noch fuer:"drilling_meters(i)"m"
+12360 	if drilling_depth(i)>=maybe_drill_meters_limit(i) then 
 	   print "{2 down} wir sind fuendig.":
 	   f(i)=1:v=3:
 	   unknown_dowithmem()
@@ -508,13 +507,13 @@ REM:  func callback_from_drill_rigging() TODO rewrite
       for dd=1 to 12:
 	   print dd;
 28100 	if fb(dd)=s then 
-	   print tab(10)bf$(dd):
+	   print tab(10)drilling_scrn_strings(dd):
 	   goto 28300
 28200 	print 
 28300 next dd
 
 28400 print :
-      input"fuer welches oelfeld";d
+      input "fuer welches oelfeld";d
 28500 if d=0 then 
 	return
 28600 if fb(d)<>s then 
@@ -551,7 +550,7 @@ REM:  func menu_oil_fields TODO rewrite
 
 30160 	for t=1 to 12:
 	   print tab(15)"{wht}"chr$(64+t);:
-	   print tab(17)"{blu}"bf$(t)
+	   print tab(17)"{blu}"drilling_scrn_strings(t)
 30180 	next t:
 
 	print "mov_cursor_upp_left(){5 down}{blk}"
@@ -560,7 +559,7 @@ REM:  func menu_oil_fields TODO rewrite
 	   if fb(t)>0 then 
 		print tab(31)"{cyn}verkauft{blk}":
 	   goto 30240
-30220 	   print tab(32)bp(t)
+30220 	   print tab(32)drill_price(t)
 30240 	next t
 
 30260 	print "{down}{wht}   "player_name(s)"{down}"
@@ -578,7 +577,7 @@ REM:  func menu_oil_fields TODO rewrite
 30380 	if fb(b)>0 then 
 	  30320
 30400 	fb(b)=s:
-	player_money(s)=player_money(s)-bp(b)
+	player_money(s)=player_money(s)-drill_price(b)
 	
 30420 	print "{3 up}{yel}"tab(35)menu_choice"{down}"
 30440 	print tab(17)"        {8 left}"player_money(s)
@@ -600,17 +599,17 @@ REM:  func menu_drill_company() TODO rewrite
 31140 	print "{down} wir koennen ihnen folgende angebote"
 31160 	print " unterbreiten.{down}"
 
-31180 	print " 1 "pf$(1);:
+31180 	print " 1 "corpo_name(1);:
 	if pp(1)>0 then 
 	   print tab(30)"verkauft":
 	goto 31220
-31200 	print tab(28)pf(1)
+31200 	print tab(28)corpo_price(1)
 
-31220 	print " 2 "pf$(2);:
+31220 	print " 2 "corpo_name(2);:
 	if pp(2)>0 then 
 	   print tab(30)"{wht}verkauft{yel}":
 	goto 31260
-31240 	print tab(28)pf(2)
+31240 	print tab(28)corpo_price(2)
 31260 	goto 31360
 
 31280 	print "{down}leider muessen wir ihnen mitteilen,  dass";
@@ -627,12 +626,12 @@ REM:  func menu_drill_company() TODO rewrite
       if s$="" then 
         goto 31420
 31440 if menu_choice="1" and pp(1)=0 then 
-        player_money(s)=player_money(s)-pf(1):
+        player_money(s)=player_money(s)-corpo_price(1):
         pp(1)=s:screen_move_down_6times():
         goto 31520
 
 31460 if menu_choice="2" and pp(2)=0 then 
-        player_money(s)=player_money(s)-pf(2):
+        player_money(s)=player_money(s)-corpo_price(2):
         pp(2)=s:screen_move_down_6times():
         goto 31620
 
@@ -644,19 +643,19 @@ REM:  func menu_drill_company() TODO rewrite
 31520 screen_move_down_6times():
       print "mov_cursor_upp_left(){5 down}"
 31540 print "{lgrn} sie sind nun besitzer der firma:{down}":
-      print "     "pf$(1)".{down}"
-31560 input" legen sie den pumpenpreis fest";p(1)
-31580 if p(1)>60000 then 
+      print "     "corpo_name(1)".{down}"
+31560 input " legen sie den pumpenpreis fest";p(1)
+31580 if pump_price(1)>60000 then 
         print "zu hoch!":
         goto 31560
 31600 goto 31700
 31620 screen_move_down_6times():
       print "mov_cursor_upp_left(){6 down}"
 31640 print "{lgrn} sie sind nun besitzer der firma:{down}":
-      print "     "pf$(2)".{down}"
+      print "     "corpo_name(2)".{down}"
 
-31660 input"legen sie den pumpenpreis fest";p(2)
-31680 if p(2)>60000 then 
+31660 input "legen sie den pumpenpreis fest";p(2)
+31680 if pump_price(2)>60000 then 
         print "zu hoch!":
         goto 31660
 
@@ -689,7 +688,7 @@ REM:  func menu_tanks_company() TODO rewrite
 
 32140 	for t=1 to 4
 32160 	   print :
-	   print t"  "tg$(t): 
+	   print t"  "firm_name(t): 
 	next t
 
 32180 	print "mov_cursor_upp_left(){6 down}"
@@ -699,8 +698,8 @@ REM:  func menu_tanks_company() TODO rewrite
 		print tab(30)"{down}{red}verkauft{blu}":
 	   goto 32260
 32240 	   print :
-	   print tab(24)tw(t);:
-	   print tab(29)tp(t)
+	   print tab(24)truck_number(t);:
+	   print tab(29)firm_price(t)
 32260 	next t
 
 32280 	print "{down} kein kauf = 'x'"
@@ -713,9 +712,9 @@ REM:  func menu_tanks_company() TODO rewrite
 32340 	if b> or =0 then 
 	   return
 
-32360 	player_money(s)=player_money(s)-tp(b):tb(b)=s
+32360 	player_money(s)=player_money(s)-firm_price(b):tb(b)=s
 32380 	print "{down}  ihr kapital betraegt jetzt"player_money(s)"{down}"
-32400 	input" ihr tankwagenpreis";lp(b)
+32400 	input " ihr tankwagenpreis";lp(b)
 32420 	if lp(b)>60000 then 
 	   print "{clr}{3 down} unrealistisch!{down}":
 	   goto 32400
@@ -844,8 +843,8 @@ REM:  func menu_sabotage_operation() TODO rewrite
 35480 screen_move_down_6times():screen_move_down_6times()
 35500 print "{clr}{lred} hey,  hier ist agent diabolo huggi baer"
 35520 print " welches oelfeld soll ich sabotieren?{down}{gry2}"
-35540 for t=1 to 12:print " "t, bf$(t): next t
-35560 print :input"  oelfeldnummer";n
+35540 for t=1 to 12:print " "t, drilling_scrn_strings(t): next t
+35560 print :input "  oelfeldnummer";n
 35580 if n< or >12 then return
 35600 print "{down}{lred} so. fuer die sabotage des oelfeldes"
 35620 print " fallen folgende unkosten an:"
@@ -862,8 +861,8 @@ REM:  func menu_sabotage_operation() TODO rewrite
 35860 goto 35820
 35880 player_money(s)=player_money(s)-w3-w4:w3=0:w4=0
 35900 w3=fnz(3):t1=0
-35920 if w3=1 then bp(n)=fnz(50000)+30000:w4=fnz(200000):fm(n)=w4:t1=2:f(n)=0
-35940 if w3=1 then bt(n)=fnz(4500):fb(n)=0:pa(n)=0:ta(n)=0:ab(n)=0:bm(n)=0:gf(n)=0
+35920 if w3=1 then drill_price(n)=fnz(50000)+30000:w4=fnz(200000):fuel_source_limit(n)=w4:t1=2:f(n)=0
+35940 if w3=1 then maybe_drill_meters_limit(n)=fnz(4500):fb(n)=0:amount_of_pumps(n)=0:amount_of_tanks(n)=0:ab(n)=0:drilling_meters(n)=0:shipping_amount(n)=0
 35950 if w3=1 then gg(n)=0
 35960 print "{down} {lblu} sabotageergebnis durch tastendruck{5 down}"
 35980 get menu_choice:if s$="" then 35980
@@ -916,7 +915,7 @@ REM:  func menu_drill_company() TODO rewrite
 37260 z1=val(menu_choice):if z1= or b(z1)>0 then return
 37280 print "sie sind nun inhaber der gesellschaft":print company_name(z1)". legen sie nun"
 37300 print "ihren bohrgestaengepreis fuer 500 m fest"
-37320 inputbd(z1)
+37320 input drilling_price_for_500m(z1)
 37340 player_money(s)=player_money(s)-maybe_company_cost(z1):bb(z1)=s:return
 
 REM:  func menu_drill_rigging() TODO rewrite
@@ -933,7 +932,7 @@ REM:  func menu_drill_rigging() TODO rewrite
 38080 	for z=1 to 3:
 	   print z"  "company_name(z);
 38100 	   if bb(z)>0 then 
-		print tab(26)bd(z)"$":
+		print tab(26)drilling_price_for_500m(z)"$":
 		goto 38140
 
 38120 	   print tab(26)"{blk}kein angebot{blu}"
@@ -949,15 +948,15 @@ REM:  func menu_drill_rigging() TODO rewrite
 	   return
 
 38220 	print "{2 down}{red}"
-38240 	input"einkauf bei welcher firma";cc:
+38240 	input "einkauf bei welcher firma";cc:
 	if cc=0 then 
 	   return
 
-38260 	if bd(cc)=0 then 
+38260 	if drilling_price_for_500m(cc)=0 then 
 	   print "{2 down}{blk} liegt noch kein angebot vor":
 	   goto 38240
 
-38280 	input "wieviel 500m einheiten wollen sie";c:
+38280 	input  "wieviel 500m einheiten wollen sie";c:
 	if c=0 then 
 	   return
 
@@ -965,16 +964,16 @@ REM:  func menu_drill_rigging() TODO rewrite
 
 38320 	if d=0 then 
 	   return
-38340 	player_money(s)=player_money(s)-(c*(bd(cc)))
+38340 	player_money(s)=player_money(s)-(c*(drilling_price_for_500m(cc)))
 38350 	for k=1 to players_count:
 	   if bb(cc)=s then 
-		player_money(s)=player_money(s)+(.2*(c*(bd(cc)))):
+		player_money(s)=player_money(s)+(.2*(c*(drilling_price_for_500m(cc)))):
 		goto 38380
 38360 	   if bb(cc)=k then 
-		player_money(k)=player_money(k)+(c*(bd(cc)))
+		player_money(k)=player_money(k)+(c*(drilling_price_for_500m(cc)))
 38380 	next k:
 
-	bm(d)=bm(d)+c*500:
+	drilling_meters(d)=drilling_meters(d)+c*500:
 	gosub callback_from_drill_rigging2()
 
 38400 	d=0:
@@ -997,17 +996,17 @@ REM:  func menu_pumps() TODO rewrite
 	print 
 
 39080 	for z=1 to 2:
-	   print z;pf$(z);
+	   print z;corpo_name(z);
 
 39100 	   if pp(z)=0 then 
 		print " {blk}kein angebot{wht}":
 		goto 39140
-39120 	   print p(z)
+39120 	   print pump_price(z)
 39140 	next z:
 
 	print "{down}"
 
-39160 	input"kauf bei welcher firma ";cc
+39160 	input "kauf bei welcher firma ";cc
 
 39180 	if cc=0 then 
 	   return
@@ -1015,7 +1014,7 @@ REM:  func menu_pumps() TODO rewrite
 	   print "{down}kein angebot da":
 	   goto 39160
 
-39220 	input"{blk}kauf von wieviel pumpen";c
+39220 	input "{blk}kauf von wieviel pumpen";c
 39240 	if c=0 then 
 	   return
 39260 	callback_from_drill_rigging():
@@ -1031,7 +1030,7 @@ REM:  func menu_pumps() TODO rewrite
 		player_money(k)=player_money(k)+(c*p(cc))
 39320 	next k:
 
-	pa(d)=pa(d)+c:
+	amount_of_pumps(d)=amount_of_pumps(d)+c:
 	callback_from_drill_rigging2()
 
 39340 	d=0:
@@ -1054,7 +1053,7 @@ REM:  func menu_tanks() TODO rewrite
 	print 
 
 40080 	for z=1 to 4:
-	   print z;tg$(z);tw(z);
+	   print z;firm_name(z);truck_number(z);
 
 40100 	   if tb(z)=0 then 
 		print " {blk}kein angebot{wht}":
@@ -1064,22 +1063,22 @@ REM:  func menu_tanks() TODO rewrite
 40140 	next z:
 	print "{down}"
 
-40160 	input"lkwkauf bei welcher firma";cc
+40160 	input "lkwkauf bei welcher firma";cc
 40180 	if cc=0 then 
 	   return
 40200 	if tb(cc)= or w(cc)<=0 then 
 	   print "{down} geht nicht!":
 	   goto 40160
 
-40220 	input"{blk}kauf von wieviel lkw     ";c
-40240 	if c= or >tw(cc) then 
+40220 	input "{blk}kauf von wieviel lkw     ";c
+40240 	if c= or >truck_number(cc) then 
 	   return
 
 40260 	callback_from_drill_rigging():
 	if d=0 then 
 	   return
 40280	player_money(s)=player_money(s)-(c*lp(cc)):
-	tw(cc)=tw(cc)-c
+	truck_number(cc)=truck_number(cc)-c
 
 40290 	for k=1 to players_count:
 	if tb(cc)=s then 
@@ -1089,7 +1088,7 @@ REM:  func menu_tanks() TODO rewrite
 40300 	if tb(cc)=k then 
 	   player_money(k)=player_money(k)+(c*lp(cc))
 40320 	next k:
-	ta(d)=ta(d)+c:
+	amount_of_tanks(d)=amount_of_tanks(d)+c:
 	callback_from_drill_rigging2()
 
 40340 	d=0:
@@ -1108,7 +1107,7 @@ REM:  func menu_price_fix() TODO rewrite
 42140 	print "{2 down} 1   =   pumpenpreis"
 42160 	print "{2 down} 2   =   tankwagenpreis"
 42180 	print "{2 down} 3   =   bohrgestaengepreis{2 down}"
-42200 	input" nr";e1:
+42200 	input " nr";e1:
 	if e1<= or 1>3 then 
 	   goto 42200
 
@@ -1120,11 +1119,11 @@ REM:  func menu_price_fix() TODO rewrite
 
 42300 	print "nr  firma          pumpenpreis{2 down}"
 42320 	for z=1 to 2:
-	   print z;pf$(z);p(z): 
+	   print z;corpo_name(z);p(z): 
 	next z
 
 42340 	print :
-	input" welche firma";e1
+	input " welche firma";e1
 
 42360 	if e1<= or 1>2 then 
 	   print " keine festlegung":
@@ -1147,11 +1146,11 @@ REM:  func menu_price_fix() TODO rewrite
 REM price changes logic
 42500 print "nr  firma       tankwagenpreis{2 down}"
 42520 for z=1 to 4:
-	print z;tg$(z);lp(z): 
+	print z;firm_name(z);lp(z): 
       next z
 
 42540 print :
-      input" welche firma";e1
+      input " welche firma";e1
 
 42560 if e1<= or 1>4 
 	then print " keine festlegung":
@@ -1172,11 +1171,11 @@ REM price changes logic
 REM TODO something else, check location
 42700 print "nr  firma       gestaengepreis{2 down}"
 42720 for z=1 to 3:
-	print z;company_name(z);bd(z): 
+	print z;company_name(z);drilling_price_for_500m(z): 
       next z
 
 42740 print :
-      input" welche firma";e1
+      input " welche firma";e1
 42760 if e1<= or 1>3 then 
 	print " keine festlegung":
 	maybe_wait_2sec():
@@ -1188,7 +1187,7 @@ REM TODO something else, check location
 
 42800 mov_cursor_down():
       set_new_price()
-42820 bd(e1)=e2:
+42820 drilling_price_for_500m(e1)=e2:
       callback_from_drill_rigging2():
       e1=0:
       e2=0:
@@ -1202,7 +1201,7 @@ REM TODO something else, check location
 
 43040 print print_black_on_white("gesellschaft    preis       besitzer    ")
 43060 for z=1 to 2
-43080   print z;pf$(z);pf(z);
+43080   print z;corpo_name(z);corpo_price(z);
 43100   for zz=1 to players_count:
 	  if pp(z)=zz then 
 		print tab(25)player_name(zz)
@@ -1210,19 +1209,19 @@ REM TODO something else, check location
       next z:
       mov_cursor_down()
 43140 select_company()
-43160 if n<= or > or p(n)=0 then 
+43160 if n<= or > or pump_price(n)=0 then 
 	return
 43180 maybe_change_prices()
 43200 e=e+100:
       if e<100 then 
 	goto 43280
-43220 player_money(s)=player_money(s)-((pf(n)*e)/100)
+43220 player_money(s)=player_money(s)-((corpo_price(n)*e)/100)
 43240 goto 43340
 
-43280 player_money(s)=player_money(s)-((pf(n)*e)/100)
+43280 player_money(s)=player_money(s)-((corpo_price(n)*e)/100)
 43320 pp(n)=0:
       w3=fnz(100000):
-      pf(n)=w3:p(n)=0
+      corpo_price(n)=w3:p(n)=0
 
 43340 e=0:
       z=0:
@@ -1234,7 +1233,7 @@ REM TODO something else, check location
 44040 print "print_black_on_white(){blk}  gesellschaft      preis  besitzer     ":
       print "mov_cursor_upp_left(){6 down}"
 44060 for z=1 to 4:
-	print "{wht}"z;tg$(z)" "tp(z): 
+	print "{wht}"z;firm_name(z)" "firm_price(z): 
       next z:
       print "mov_cursor_upp_left(){6 down}"
 44080 for zz=1 to 4:
@@ -1254,33 +1253,33 @@ REM TODO something else, check location
 44200 e=e+100:
       if e<100 then 
 	goto 44280
-44220 player_money(s)=player_money(s)-((tp(n)*e)/100)
+44220 player_money(s)=player_money(s)-((firm_price(n)*e)/100)
 44240 zz=0:z=0:e=0:
       return
 
 
-44280 player_money(s)=player_money(s)-((tp(n)*e)/100)
+44280 player_money(s)=player_money(s)-((firm_price(n)*e)/100)
 44300 tb(n)=0
 44320 w3=fnz(200000):
-      tp(n)=w3:
+      firm_price(n)=w3:
       lp(n)=0:
-      tw(n)=int(w3/10000)
+      truck_number(n)=int(w3/10000)
 44340 zz=0:
       z=0
 44360 print "{clr}{yel}sie besitzen ein  or aufsrecht auf die"
 44380 print "von ihnen sabotierte tankwagenfirma:"
-44400 print "{down} firma      :"tg$(n)
-44420 print " preis      :"tp(n)"$"
-44460 print " lkwzahl    :"tw(n)
+44400 print "{down} firma      :"firm_name(n)
+44420 print " preis      :"firm_price(n)"$"
+44460 print " lkwzahl    :"truck_number(n)
 44480 print "{2 down} wollen sie kaufen (j/n)?{down}"
 44500 make_menu_choice():
       set_inner_color(RED):
       print "{yel}{2 down}"
 44520 if menu_choice="j" then 
         tb(n)=s:
-        player_money(s)=player_money(s)-tp(n)
+        player_money(s)=player_money(s)-firm_price(n)
 44540 if menu_choice="j" then 
-         input" neuer lkw-preis";lp(n)
+         input " neuer lkw-preis";lp(n)
 44560 return
 45000 print "{clr} welche der folgenden bohrgesellschaft-";
 45020 print " en soll sabotiert werden{2 down}"
@@ -1305,7 +1304,7 @@ REM TODO something else, check location
 45220 player_money(s)=player_money(s)-((maybe_company_cost(n)*e)/100)
 45260 goto 45340
 45280 player_money(s)=player_money(s)-((maybe_company_cost(n)*e)/100)
-45320 bb(n)=0:maybe_company_cost(n)=fnz(100000):bd(n)=0
+45320 bb(n)=0:maybe_company_cost(n)=fnz(100000):drilling_price_for_500m(n)=0
 45340 e=0:
       z=0:
       zz=0:
@@ -1365,7 +1364,7 @@ REM:  func unknown_set_values()
       return
 
 REM:  func set_new_price()
-58000 	input" neuer preis";e2
+58000 	input " neuer preis";e2
 58100 return
 
 REM:  func maybe_buy_something()
@@ -1430,7 +1429,7 @@ REM:  func print_player_wallet()
       return
 
 REM:  func select_company()
-59900 	input"print_black_on_white()   welche firma (nr)";n
+59900 	input "print_black_on_white()   welche firma (nr)";n
 59950 return
 
 REM:  func screen_move_down_6times()

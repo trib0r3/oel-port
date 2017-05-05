@@ -11,12 +11,12 @@ Original source code is available locally in project [here](LISTING.md)
 
 #### Requirements
 
-1. [GNU Make](https://www.gnu.org/software/make/)
+1. [CMake](https://cmake.org/)
 2. [GCC](https://gcc.gnu.org/)
 3. [SFML(2.4.2)](http://www.sfml-dev.org/download/sfml/2.4.2/)
 
 
-#### Building
+#### Building (W.I.P)
 
 1. Check requirements
 2. `cd` into main project directory
