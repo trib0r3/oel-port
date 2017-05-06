@@ -1,27 +1,26 @@
 GLOBALS:
-sz		              -> int players_count 		(at addr 450?)
-ra$		              -> str concern_name 
-		                   = "bohr & pump & sohn"
-k		                -> int start_money
-l1		              int ???
-rz		              -> int current_year (init = 1983)
-s$		              -> char menu_choice
+sz                  -> int players_count     (at addr 450?)
+ra$                 -> str concern_name 
+k                   -> int start_money
+l1                  int ???
+rz                  -> int current_year (init = 1983)
+s$                  -> char menu_choice
 
-a1$              		str
-a2$		              str
-a3$		              str
-a4$		              str = "Which is to be sold"
-r		                -> int round_num
+a1$                 str
+a2$                 str
+a3$                 str
+a4$                 str = "Which is to be sold"
+r                   -> int round_num
 l
 a
 
 h
 th
 tl
-gx		              int (from user)
-gy		              int (from user)
+gx                  int (from user)
+gy                  int (from user)
 dt
-e2		              int price of ???
+e2                  int price of ???
 
 
 ITERATORS:
@@ -29,40 +28,40 @@ b
 t
 tt
 k
-ox		              range: [1,100]
+ox                  range: [1,100]
 ts
 z
 z9
 
 ARRAYS:
 #DEFINE OIL_FIELDS_NUM 13
-ab(OIL_FIELDS_NUM)    -> int[OIL_FIELDS_NUM] drilling_depth
-bd(OIL_FIELDS_NUM)    -> int[OIL_FIELDS_NUM] drilling_price_for_500m
-bm(OIL_FIELDS_NUM)    -> int[OIL_FIELDS_NUM] drilling_meters
+ab(13)                 -> int[OIL_FIELDS_NUM] drilling_depth
+bd(13)                 -> int[OIL_FIELDS_NUM] drilling_price_for_500m
+bm(13)                 -> int[OIL_FIELDS_NUM] drilling_meters
 
-bf$(OIL_FIELDS_NUM)	  -> string[OIL_FIELDS_NUM] drilling_scrn_strings
+bf$(13)                -> string[OIL_FIELDS_NUM] drilling_scrn_strings
 
-bp(OIL_FIELDS_NUM)		-> int[OIL_FIELDS_NUM] drill_price
-bt(OIL_FIELDS_NUM)		-> int[OIL_FIELDS_NUM] maybe_drill_meters_limit
-fb(OIL_FIELDS_NUM)
-f(OIL_FIELDS_NUM)
-fm(OIL_FIELDS_NUM)    -> int[OIL_FIRLDS_NUM] fuel_source_limit
-pa(OIL_FIELDS_NUM)    -> int[OIL_FIELDS_NUM] amount_of_pumps
-ta(OIL_FIELDS_NUM)    -> int[OIL_FIELDS_NUM] amount_of_tanks
-rp(37)		            -> int[37] refinery_price
-gf(12)                -> int[12] shipping_amount
+bp(13)                 -> int[OIL_FIELDS_NUM] drill_price
+bt(13)                 -> int[OIL_FIELDS_NUM] maybe_drill_meters_limit
+fb(13)
+f(13)
+fm(13)                 -> int[OIL_FIRLDS_NUM] fuel_source_limit
+pa(13)                 -> int[OIL_FIELDS_NUM] amount_of_pumps
+ta(13)                 -> int[OIL_FIELDS_NUM] amount_of_tanks
+rp(37)                 -> int[37] refinery_price
+gf(12)                 -> int[12] shipping_amount
 gg(12)
-p(?)                  -> int[?] pump_price
+p(?)                   -> int[?] pump_price
 
-pf$(?=2)	            -> string[2] corpo_name
-pf(?=2)		            -> int[2] corpo_price
+pf$(?=2)               -> string[2] corpo_name
+pf(?=2)                -> int[2] corpo_price
 
-tg$(?=4)	            -> string[4] firm_name
-tp(?=4)		            -> int[4] firm_price
-tw(?=4)		            -> int[4] truck_number
-b$(?=3)		            -> str company_name
-bg(?=3)		            -> int maybe_company_cost
-ks(sz)		            -> int[players_count] player_money
-sn$(sz)		            -> str[players_count] player_name
-bk(sz)		            -> int[players_count] player_bankloan
+tg$(?=4)               -> string[4] firm_name
+tp(?=4)                -> int[4] firm_price
+tw(?=4)                -> int[4] truck_number
+b$(?=3)                -> str company_name
+bg(?=3)                -> int maybe_company_cost
+ks(sz)                 -> int[players_count] player_money
+sn$(sz)                -> str[players_count] player_name
+bk(sz)                 -> int[players_count] player_bankloan
 
