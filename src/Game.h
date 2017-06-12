@@ -5,6 +5,11 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
+
 #include <SFML/Window/Event.hpp>
 
 #include "Player.h"
@@ -21,9 +26,12 @@ private:
     sf::Color DEFAULT_CLEAR_COLOR;
 
     sf::RenderWindow window_;
+    sf::View view_;
     sf::Font font_commodore_;
 
     sf::RectangleShape rectangle_screen_;
+    sf::RectangleShape rectangle_border_;
+
     sf::Color color_clear_;
 
     sf::Event event_;
@@ -42,11 +50,13 @@ private:
     int prepare_consts_to_load_();
 
     int show_menu_();
-    void draw_logo_();
     inline void clear_screen_();
     inline bool is_exit_triggered_();
 
     int load_graphics_module_(unsigned int scrn_width=1366, unsigned int scrn_height=768);
+
+    inline void pos_rel_to_point(sf::Vector2f point, sf::Text* text);
+    inline void view_move_(sf::Vector2f offset, float t=1.0f);
 };
 
 
