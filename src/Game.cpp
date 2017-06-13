@@ -129,6 +129,7 @@ int Game::show_menu_() {
     bool isInputEnabled = false;
     sf::String sTextInput;
     int maxLetters = 0;
+    int readyPlayers = 0; // amount of players, already handled with names
 
     while(!exit)
     {
@@ -158,13 +159,12 @@ int Game::show_menu_() {
                         tNext->setCharacterSize(SIZE_MEDIUM);
                         break;
                     case 2:
-                        menu_state = 999;
                         camera_state = 0xbad;
                         isInputEnabled = true;
                         maxLetters = 1;
                         break;
                     case 3:
-                        camera_state = 1;
+                        // FIXME long wait time to show current year
                         tNext->setString("Current year:");
                         break;
                     case 4:
@@ -175,8 +175,14 @@ int Game::show_menu_() {
                         tNext->setString("The game ends in 2017");
                         tNext->setCharacterSize(SIZE_MEDIUM);
                         break;
-                    case 999:
-                        // intentionally no action, needed to change manually
+                    case 6:
+                        tNext->setString(
+                                "[" + std::to_string(readyPlayers + 1) + "/" +
+                                std::to_string(players_count_) +
+                                "] Enter player name:"
+                        );
+                        tNext->setCharacterSize(SIZE_MEDIUM);
+                        // TODO implement text input and get many players names
                         break;
                     default:
                         camera_state = 0xbad;
@@ -211,8 +217,9 @@ int Game::show_menu_() {
                         if (letter >= '2' && letter <= '6') {
                             printf("Entered letter: %c\n", letter);
                             isInputEnabled = false;
-                            menu_state = 3;
                             camera_state = 1;
+
+                            players_ = new Player[players_count_];
                         }
                         sTextInput.clear();
                     }
@@ -222,6 +229,7 @@ int Game::show_menu_() {
 
         // TODO menu stuff (players selection, etc...)
         clear_screen_();
+
         window_.draw(rectangle_screen_);
         window_.draw(*tCurrent);
         window_.draw(*tNext);

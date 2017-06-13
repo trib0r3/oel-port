@@ -9,7 +9,11 @@ public:
     int money;
     int bank_loan;
 
+    Player();
     Player(std::string name, int starting_money);
+
+private:
+    void init_();
 };
 
 
