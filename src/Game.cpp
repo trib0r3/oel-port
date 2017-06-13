@@ -103,10 +103,12 @@ int Game::show_menu_() {
      * 0 = init, show big title: "OEL..." (wait 4 seconds)
      * 1 = quote, show subtitle: "Big game..." (wait 2s)
      * 2 = player init, get number of players TODO add middle state for get amount of players
-     * 3 = "Current year"
-     * 4 = "<year>"
-     * 5 = "Game ends in..." (1sec)
-     * 6 = instant "Enter player name..." TODO
+     * 3 = <get input>
+     * 4 = "Current year"
+     * 5 = "<year>"
+     * 6 = "Game ends in..." (1sec)
+     * 7 = instant "Enter player name..." TODO
+     * 999 = manual state
      */
     int menu_state = 0;
     // prepare for 1st & 2nd stage
@@ -124,6 +126,10 @@ int Game::show_menu_() {
     clock.restart();
 
     sf::Clock dt;
+    bool isInputEnabled = false;
+    sf::String sTextInput;
+    int maxLetters = 0;
+
     while(!exit)
     {
         switch (camera_state) {
@@ -148,19 +154,29 @@ int Game::show_menu_() {
                 switch (menu_state) {
                     case 1:
                         wait_time = 2;
-                        tNext->setString("Amount of players (2-6):");
+                        tNext->setString("Amount of players (2-6):\n[]");
                         tNext->setCharacterSize(SIZE_MEDIUM);
                         break;
                     case 2:
-                        tNext->setString("Current year:");
+                        menu_state = 999;
+                        camera_state = 0xbad;
+                        isInputEnabled = true;
+                        maxLetters = 1;
                         break;
                     case 3:
+                        camera_state = 1;
+                        tNext->setString("Current year:");
+                        break;
+                    case 4:
                         tNext->setString(std::to_string(current_year_));
                         tNext->setCharacterSize(72);
                         break;
-                    case 4:
+                    case 5:
                         tNext->setString("The game ends in 2017");
                         tNext->setCharacterSize(SIZE_MEDIUM);
+                        break;
+                    case 999:
+                        // intentionally no action, needed to change manually
                         break;
                     default:
                         camera_state = 0xbad;
@@ -183,6 +199,25 @@ int Game::show_menu_() {
         while(window_.pollEvent(event_)) {
             if (is_exit_triggered_())
                 exit = true;
+
+            if(isInputEnabled && event_.type == sf::Event::TextEntered) {
+                if(event_.text.unicode < 128) {
+                    char letter = static_cast<char>(event_.text.unicode);
+                    sTextInput += letter;
+
+                    // ugly case check:
+                    if(maxLetters == 1) {
+                        players_count_ = atoi(sTextInput.toAnsiString().c_str());
+                        if (letter >= '2' && letter <= '6') {
+                            printf("Entered letter: %c\n", letter);
+                            isInputEnabled = false;
+                            menu_state = 3;
+                            camera_state = 1;
+                        }
+                        sTextInput.clear();
+                    }
+                }
+            }
         }
 
         // TODO menu stuff (players selection, etc...)

@@ -1,6 +1,8 @@
 #ifndef SRC_GAME_H
 #define SRC_GAME_H
 
+#include <cstdlib>
+
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
