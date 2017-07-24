@@ -41,6 +41,7 @@ Port of *Oel* game from Commodore64 (BASIC) to modern processors (C++ & SFML).
 Project is separated into folders:
 
 ```
+├── docs
 ├── notes
 ├── obj
 ├── scripts
@@ -50,6 +51,7 @@ Project is separated into folders:
 
 Interesting for you may be:
 
+1. [docs](docs/) - more official notes (documentation) for Oel Port
 1. [notes](notes/) - containing files with my personal research (i.e. more priendy pseudo-basic code, similar to C code, etc.)
 2. [scripts](scripts/) - containing helper-scripts
 2. [src](src/) - containing translated game code into C++

@@ -1,0 +1,122 @@
+Author: shead
+
+
+/* If params of function are not given, then you can add own if necessary
+
+eg.
+   f(x)    - function 'f' with only one arg 'x' is mandatory
+             (optional overrides with other args are accepted)
+   f(void) - function 'f' with NO args is mandatory
+             (optional overrides with other args are accepted)
+   f()     - mandatory function schema is not given,
+             every function arg schema is accepted
+*/
+
+Screen (simplified):
+====================
+
+(0,0) +---------------+ (1,0)
+      |     OUTER     |
+      |  +---------+  |
+      |  |  INNER  |  |
+      |  +---------+  |
+      |               |
+(1,0) +---------------+ (1,1)
+
+NOTICE: correct proportions are unknown, see Commodore Wiki for more details
+
+
+Colors:
+=======
+Colors are defined inside "src/colors.h"
+
+
+Class Name: Graphics
+===========
+
+Methods:
+========
+------------------------------------------------------------------------------------------------
+  Graphics()                        - init values for graphics module
+  DrawMenu(Player)                  - go to drawing menu for specified player
+------------------------------------------------------------------------------------------------
+  unknown_print_magic()             - TODO check functionality
+------------------------------------------------------------------------------------------------
+  SetOuterColor(Color)              - Set color of OUTER part
+  SetInnerColor(Color)              - Set color of INNER part
+------------------------------------------------------------------------------------------------
+  GetInteractive(                   - Get value with full interaction (using prompt) 
+                                      and store inside variable
+    Value*, /* int, float, string */- pointer to variable, overrided for types: int,float,string
+    Range=None                      - numerics can be closed inside range (int,int) 
+                                      or (float,float)
+                                      for literals it means string length
+    clamp=false                     - clamp value inside range
+  ) returns bool
+  
+  Returns TRUE if:
+  * type=string
+    - given input is correct length (if Range param is not given, then accept every len)
+  * type is numeric
+    + there is no parsing error
+    + range is given and clamp is:
+      - enabled (then always return TRUE)
+      - disabled and given input is inside given range
+  Otherwise return FALSE
+
+  Examples:
+    GetInteractive(&myint) 
+    // IN: "123" RET: true 
+    // Value 123 is stored inside myint variable
+    
+    GetInteractive(&myint) 
+    // IN: "ABC" RET: false
+    // Parsing error, ABC is not a number
+
+    GetInteractive(&myint, [23, 150])
+    // IN: "200" RET: false
+    // Range error. Input is valid, but not in given range (clamp by default is off)
+
+    GetInteractive(&myint, [23, 150], true)
+    // IN: "200" RET: true
+    // Value '150' is stored instead of 200, because clamping is enabled
+
+    GetInteractive(&mystring, [23, 111])
+    // IN: "321" RET: false
+    // Invalid size error. String length should be inside range [23, 111]
+    
+    GetInteractive(&mystring, [0, 1], true)
+    // IN: "321" RET: false
+    // "3" is stored inside "mystring" variable. Input string is cutted-off to proper len
+------------------------------------------------------------------------------------------------
+  Write(text, mode)                 - Write given text at cursor position
+                                      Writing Modes: BlackOnWhite, WhiteOnBlack (default)
+------------------------------------------------------------------------------------------------
+  SetClearScrnColor(color)          - Change clearing screen color
+------------------------------------------------------------------------------------------------
+  CursorMove(int,int)               - Move cursor in given offset of (rows, columns)
+  CursorReset(void)                 - Resets cursor to default position: (0, 0)
+------------------------------------------------------------------------------------------------
+  SetKeyboardCallback(Callback,Key) - Sets callback method for processing pressed keys
+                                      
+  IMPORTANT! 
+    Redirecting input must be DISABLED during GetInteractive(...) sessions!
+------------------------------------------------------------------------------------------------
+  CameraChangeScene(                - Move camera to scene
+    camFrameX,                      - offset x in camera unit 
+    camFrameY,                      - offset y in camera unit
+    sliding=false                   - sliding feature (see notes below)
+  )       
+  
+  NOTICE
+  Sometimes we want to nicely change rendered scene, by "sliding", so we have to:
+    1. Prepare next scene outside camera view (lets say in offset (0, 1) cameraFrame,
+       what implies our work scene is 1 camera unit below main scene
+    2. Begin sliding into new scene (step can be skipped by any key event)
+    3. When sliding is done we are changing game state
+    4. Now "new scene" becomes "main scene", "old scene" can be trashed
+------------------------------------------------------------------------------------------------
+  NOTICE: not important for now, only concept
+
+  Scene {OIL_FIELDS, PUMP_COMPANY, TANKS_COMPANY, ... }
+  SceneBuild(Scene,int,int)       - Prepare scene on position measured in camera units
