@@ -3,8 +3,7 @@
 #include <map>
 #include <functional>
 
-#include "scene/Scene.hpp"
-#include "wrappers/FunctionPointerWrapper_t.hpp"
+#include "FunctionPointerWrapper_t.hpp"
 
 #include "SFML/Window/Keyboard.hpp"
 
@@ -52,16 +51,3 @@ namespace mv
 		return false;
 	}
 }
-
-/*=================
-Example of use:
-void a()
-{
-std::cout << "a";
-}
-
-inputManager.addKeyToCheck(sf::Keyboard::A, a);
-
-while(true)
-	inputManager.control();
-*/
