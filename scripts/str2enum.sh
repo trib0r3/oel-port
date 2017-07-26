@@ -1,0 +1,1 @@
+sed 's/[^a-zA-Z ]//g' eng.lang | sed 's/ /_/g' | tr '[:lower:]' '[:upper:]' | sed 's/^_//' | sed 's/^/  /g' > enum
