@@ -49,3 +49,12 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+*.tlog
+*.idb
+*.vcxproj.filters
+*.sln
+*.db
+*.vcxproj
+external/
+
+*.opendb
