@@ -1,0 +1,18 @@
+/* Logic module implements original behaviours
+   see: notes/ for more info
+*/
+
+class Player
+============
+Basic class describing player fields and interactions with him 
+(see: src/Player.h for more details)
+
+class Company
+=============
+Base class for Company-like classes
+(see: src/Company.h for more details)
+
+class Config
+============
+Config loading constants to game, strings, etc.
+(see: src/Config.h for more details)
