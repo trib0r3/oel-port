@@ -5,12 +5,13 @@
 #include <memory>
 
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 #include "Logger.hpp"
 
 namespace mv
 {
-  template < typename T = typename std::enable_if< std::is_base_of<sf::Texture, T>::value, T>::type>
+  template < typename T = typename std::enable_if<std::is_base_of<sf::Font, T>::value || std::is_base_of<sf::Texture, T>::value, T>::type>
   class Cache
   {
     /* ===Objects=== */
@@ -31,7 +32,7 @@ namespace mv
 
     if ( path.empty() )
     {
-      Logger::Log("Cache can't find resource in empty path.", Logger::STREAM::BOTH, Logger::TYPE::WARNING);
+      Logger::Log("Cache can't find resource in empty path.", Logger::stream_t::BOTH, Logger::type_t::WARNING);
     }
 
     {//Try find resource
@@ -45,7 +46,7 @@ namespace mv
 
       if ( !resource.loadFromFile(path) )
       {
-        Logger::Log("Cache can't find resource in this path.", Logger::STREAM::BOTH, Logger::TYPE::WARNING);
+        Logger::Log("Cache can't find resource in this path.", Logger::stream_t::BOTH, Logger::type_t::WARNING);
       }
 
       resources.emplace(path, std::make_shared<T>(resource));

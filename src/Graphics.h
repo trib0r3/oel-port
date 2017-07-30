@@ -7,6 +7,8 @@
 #include "colors.h"
 #include "types.h"
 #include "Player.h"
+#include "Cache.hpp"
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -45,12 +47,14 @@ private:
 
   sf::RenderWindow window_;
   sf::View view_;
-  sf::Font font_commodore_;
+  mv::Cache<sf::Font> font_commodore_;
 
   sf::RectangleShape rectangle_screen_;
   sf::RectangleShape rectangle_border_;
 
   sf::Color color_clear_;;
+
+  sf::Vector2f coursor;
 };
 
 

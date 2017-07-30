@@ -3,6 +3,7 @@
 Graphics::Graphics()
   :DEFAULT_CLEAR_COLOR(c64::BLACK)
 {
+  font_commodore_.get("resources/PetMe.ttf");
 }
 
 void Graphics::DrawMenu(Player *) {
@@ -26,7 +27,7 @@ bool Graphics::GetInteractive(float &value, float a, float b, bool clamp) {
 }
 
 bool Graphics::GetInteractive(const std::string &value, int a, int b, bool clamp) {
-  
+
   if ( a == 0 && b == 0 )
     return true;
 
@@ -43,11 +44,13 @@ void Graphics::SetClearScreenColor(const sf::Color& color) {
 }
 
 void Graphics::CursorMove(int x, int y) {
-
+  cursor.x += x;
+  cursor.y += y;
 }
 
 void Graphics::CursorReset() {
-
+  cursor.x = 0;
+  cursor.y = 0;
 }
 
 void Graphics::SetKeyboardCallback(Callback callback, int keyCode) {
