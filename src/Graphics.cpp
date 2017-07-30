@@ -18,15 +18,20 @@ void Graphics::SetOuterColor(const sf::Color& color) {
 }
 
 bool Graphics::GetInteractive(int &value, int a, int b, bool clamp) {
-  return false;
+  return (clamp ? value >= a : value >= a && value <= b);
 }
 
 bool Graphics::GetInteractive(float &value, float a, float b, bool clamp) {
-  return false;
+  return (clamp ? value >= a : value >= a && value <= b);
 }
 
 bool Graphics::GetInteractive(const std::string &value, int a, int b, bool clamp) {
-  return false;
+  
+  if ( a == 0 && b == 0 )
+    return true;
+
+  auto size = value.size();
+  return (clamp ? size >= a : size >= a && size <= b);
 }
 
 void Graphics::Write(const std::string& text, Graphics::WriteMode mode) {

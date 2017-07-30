@@ -32,8 +32,8 @@ public:
   void Write(const std::string& text, WriteMode mode = WriteMode::WhiteOnBlack);
   void SetClearScreenColor(const sf::Color& color);
 
-  void CursorMove(int x, int y); /**/
-  void CursorReset(); /**/
+  void CursorMove(int x, int y);
+  void CursorReset();
 
   void SetKeyboardCallback(Callback callback, int keyCode);
 
