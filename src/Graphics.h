@@ -19,26 +19,26 @@ public:
 
   Graphics();
 
-  void DrawMenu( Player* );
+  void DrawMenu(Player*);
   // TODO Draw other stuff like player creation etc
 
-  void SetInnerColor( const sf::Color& color );
-  void SetOuterColor( const sf::Color&  color );
+  void SetInnerColor(const sf::Color& color);
+  void SetOuterColor(const sf::Color&  color);
 
-  bool GetInteractive( int& value, int a = 0, int b = 0, bool clamp = false );
-  bool GetInteractive( float& value, float a = 0, float b = 0, bool clamp = false );
-  bool GetInteractive( const std::string& value, int a = 0, int b = 0, bool clamp = false );
+  bool GetInteractive(int& value, int a = 0, int b = 0, bool clamp = false);
+  bool GetInteractive(float& value, float a = 0, float b = 0, bool clamp = false);
+  bool GetInteractive(const std::string& value, int a = 0, int b = 0, bool clamp = false);
 
-  void Write( const std::string& text, WriteMode mode = WriteMode::WhiteOnBlack );
-  void SetClearScreenColor( const sf::Color& color );
+  void Write(const std::string& text, WriteMode mode = WriteMode::WhiteOnBlack);
+  void SetClearScreenColor(const sf::Color& color);
 
-  void CursorMove( int x, int y ); /**/
+  void CursorMove(int x, int y); /**/
   void CursorReset(); /**/
 
-  void SetKeyboardCallback( Callback callback, int keyCode );
+  void SetKeyboardCallback(Callback callback, int keyCode);
 
-  void CameraChangeScene( int x, int y, bool sliding = false );
-  void SceneBuild( Scene::Scene scene, int x, int y );
+  void CameraChangeScene(int x, int y, bool sliding = false);
+  void SceneBuild(Scene::Scene scene, int x, int y);
 
 private:
   const sf::Color DEFAULT_CLEAR_COLOR;
