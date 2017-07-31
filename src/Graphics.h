@@ -12,8 +12,12 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include "TextWrapper.hpp"
 
-class Graphics {
+class Graphics 
+  :public sf::Drawable
+{
 public:
   enum class WriteMode {
     BlackOnWhite, WhiteOnBlack
@@ -29,9 +33,9 @@ public:
 
   bool GetInteractive(int& value, int a = 0, int b = 0, bool clamp = false);
   bool GetInteractive(float& value, float a = 0, float b = 0, bool clamp = false);
-  bool GetInteractive(const std::string& value, int a = 0, int b = 0, bool clamp = false);
+  bool GetInteractive(std::string& value, int a = 0, int b = 0, bool clamp = false);
 
-  void Write(const std::string& text, WriteMode mode = WriteMode::WhiteOnBlack);
+  void Write(const std::string& text, WriteMode mode = WriteMode::WhiteOnBlack, const sf::Color& color = c64::BLACK);
   void SetClearScreenColor(const sf::Color& color);
 
   void CursorMove(int x, int y);
@@ -43,6 +47,8 @@ public:
   void SceneBuild(Scene::Scene scene, int x, int y);
 
 private:
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
   const sf::Color DEFAULT_CLEAR_COLOR;
 
   sf::RenderWindow window_;
@@ -54,7 +60,9 @@ private:
 
   sf::Color color_clear_;;
 
-  sf::Vector2f coursor;
+  sf::Vector2f cursor_;
+
+  std::vector<TextWrapper> texts_;
 };
 
 

@@ -13,7 +13,11 @@ class TextWrapper
 {
 public:
   std::shared_ptr<sf::RectangleShape> getBackground();
-  const sf::Text& getText();
+  sf::Text& getText();
+
+  void setPosition(float x, float y);
+  void setPosition(sf::Vector2f pos);
+  void setCenter();
 private:
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
   
