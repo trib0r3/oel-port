@@ -40,7 +40,7 @@ bool Graphics::GetInteractive(std::string &value, int a, int b, bool clamp) {
 
   auto size = value.size();
 
-  if ( size > b )
+  if ( size > b && clamp )
     value = value.substr(0, b);
 
   return (clamp ? size >= a : size >= a && size <= b);
@@ -57,11 +57,10 @@ void Graphics::Write(const std::string& text, Graphics::WriteMode mode, const sf
     sfText.setFillColor(color);
   else
   {
-    auto background = textWrapper.getBackground();
-
-    background = std::make_shared<sf::RectangleShape>();
-    background->setSize({ sfText.getGlobalBounds().width ,sfText.getGlobalBounds().height });
-    background->setFillColor(c64::BLACK);
+    constexpr float extension = 15.f;
+    textWrapper.getBackground() = std::make_shared<sf::RectangleShape>();
+    textWrapper.getBackground()->setSize({ sfText.getGlobalBounds().width + extension ,sfText.getGlobalBounds().height + extension });
+    textWrapper.getBackground()->setFillColor(c64::BLACK);
 
     sfText.setFillColor(rectangle_screen_.getFillColor());
   }

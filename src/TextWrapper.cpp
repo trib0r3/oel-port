@@ -1,7 +1,7 @@
 #include "TextWrapper.hpp"
 
 
-std::shared_ptr<sf::RectangleShape> TextWrapper::getBackground()
+std::shared_ptr<sf::RectangleShape>& TextWrapper::getBackground()
 {
   return background;
 }
@@ -13,8 +13,12 @@ sf::Text& TextWrapper::getText()
 
 void TextWrapper::setPosition(float x, float y)
 {
+
   if ( background != nullptr )
-    background->setPosition(x, y);
+  {
+    constexpr float localExtension = 3.5f;
+    background->setPosition(x + localExtension, y + localExtension);
+  }
   text.setPosition(x, y);
 }
 

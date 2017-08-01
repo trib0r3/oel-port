@@ -55,6 +55,6 @@ fabric.properties
 *.sln
 *.db
 *.vcxproj
-external/
-
 *.opendb
+tests.txt
+external/

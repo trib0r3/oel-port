@@ -12,7 +12,7 @@ class TextWrapper
   :public sf::Drawable
 {
 public:
-  std::shared_ptr<sf::RectangleShape> getBackground();
+  std::shared_ptr<sf::RectangleShape>& getBackground();
   sf::Text& getText();
 
   void setPosition(float x, float y);
