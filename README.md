@@ -78,4 +78,5 @@ Project is under [BSD-3](LICENSE.md) License. Except resources listed in [3rd pa
 Following resources are coming from external sources:
 
 1. [PetMe Font](src/resources/Commodore-64-v6.3.ttf) is created by [KREATIVE SOFTWARE](http://www.kreativekorp.com/) | [LICENSE](third-party/PetMeFontLicense.txt)
+2. [Libs by PiGames members](src/third-party/pigames) is created by [PiGames](http://pigam.es/) | [LICENSE](third-party/third-party-sources.txt)
 
