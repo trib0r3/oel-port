@@ -1,0 +1,7 @@
+Third party sources are inside src/third-party directory.
+
+Following files are credited by:
+* pigames/
+  - Condzi
+  - mvxxx
+  All sources contains own licenses in header comments section
