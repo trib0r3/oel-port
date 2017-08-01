@@ -6,8 +6,8 @@
 
 #include "colors.h"
 #include "types.h"
-#include "Player.h"
-#include "Cache.hpp"
+#include "oel/Player.h"
+#include "third-party/pigames/Cache.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>

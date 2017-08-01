@@ -3,7 +3,7 @@
 Graphics::Graphics()
   :DEFAULT_CLEAR_COLOR(c64::BLACK)
 {
-  font_commodore_.get("resources/PetMe.ttf");
+  font_commodore_.get("src/resources/PetMe.ttf");
 }
 
 void Graphics::DrawMenu(Player *) {
