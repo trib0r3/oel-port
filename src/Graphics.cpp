@@ -60,7 +60,7 @@ void Graphics::Write(const std::string& text, Graphics::WriteMode mode, const sf
     constexpr float extension = 15.f;
     textWrapper.getBackground() = std::make_shared<sf::RectangleShape>();
     textWrapper.getBackground()->setSize({ sfText.getGlobalBounds().width + extension ,sfText.getGlobalBounds().height + extension });
-    textWrapper.getBackground()->setFillColor(c64::BLACK);
+    textWrapper.getBackground()->setFillColor(color);
 
     sfText.setFillColor(rectangle_screen_.getFillColor());
   }
