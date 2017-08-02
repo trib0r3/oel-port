@@ -31,16 +31,16 @@ namespace mv
   private:
     /* ===Methods=== */
   public:
-    static void Log( const std::string&, const Logger::stream_t& = Logger::stream_t::CONSOLE, const Logger::type_t& = Logger::type_t::ERROR );
+    static void Log(const std::string&, const Logger::stream_t& = Logger::stream_t::CONSOLE, const Logger::type_t& = Logger::type_t::ERROR);
   protected:
   private:
 
-  static void sendMessage( const std::string& message, Logger::stream_t stream, std::string &prefix );
+    static void sendMessage(const std::string& message, Logger::stream_t stream, std::string &prefix);
 
-    static void consoleMessage( const std::string&message, std::string &prefix, std::time_t& time );
+    static void consoleMessage(const std::string&message, std::string &prefix, std::time_t& time);
 
-    static void fileMessage( const std::string&, std::string &prefix, std::time_t& time );
+    static void fileMessage(const std::string&, std::string &prefix, std::time_t& time);
 
-    static void setPrefix( Logger::type_t type, std::string &prefix );
+    static void setPrefix(Logger::type_t type, std::string &prefix);
   };
 }
