@@ -1,12 +1,15 @@
 #include "Graphics.h"
 
-Graphics::Graphics(float cameraUnitWidth, float cameraUnitHeight)
-  :DEFAULT_CLEAR_COLOR(c64::BLACK), cameraUnit({ cameraUnitWidth ,cameraUnitHeight })
+Graphics::Graphics(float windowWidth, float windowHeight, float cameraUnitWidth, float cameraUnitHeight)
+  :DEFAULT_CLEAR_COLOR(c64::BLACK), cameraUnit_({ cameraUnitWidth ,cameraUnitHeight })
 {
   font_commodore_.get("src/resources/PetMe.ttf");
 
   if ( cameraUnitHeight < 0 || cameraUnitWidth < 0 )
     mv::Logger::Log("Camera unit dimensions can't be negative", mv::Logger::stream_t::CONSOLE, mv::Logger::type_t::ERROR);
+  
+  window_.create(sf::VideoMode(windowWidth, windowHeight), "Oel Pompowacze");
+  window_.setView(view_);
 }
 
 
@@ -93,12 +96,20 @@ void Graphics::SetKeyboardCallback(Callback callback, int keyCode) {
 
 }
 
-void Graphics::CameraChangeScene(int i, int j, bool sliding) {
+void Graphics::CameraChangeScene(int i, int j, Scene::Scene scene, bool sliding) {
+  if(sliding)
+  {
+   
 
+  }else
+  {
+    SceneBuild(scene, i, j);
+    view_.setCenter(i*cameraUnit_.x, j*cameraUnit_.y);
+  }
+  window_.setView(view_);
 }
 
 void Graphics::SceneBuild(Scene::Scene scene, int i, int j) {
-
 }
 
 void Graphics::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -108,6 +119,7 @@ void Graphics::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
   for ( auto&text : texts_ )
   {
-    target.draw(text);
+      target.draw(text);
+
   }
 }

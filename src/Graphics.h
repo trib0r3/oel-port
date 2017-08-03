@@ -15,7 +15,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include "TextWrapper.hpp"
 
-class Graphics 
+class Graphics
   :public sf::Drawable
 {
 public:
@@ -23,7 +23,7 @@ public:
     BlackOnWhite, WhiteOnBlack
   };
 
-  Graphics(float cameraUnitWidth, float cameraUnitHeight);
+  Graphics(float windowWidth = 600, float windowHeight = 600, float cameraUnitWidth = 600, float cameraUnitHeight = 600);
 
   void DrawMenu(Player*);
   // TODO Draw other stuff like player creation etc
@@ -47,15 +47,16 @@ public:
    *x;y <=> dimensions in pixels
    *i;j <=> dimensions in camera's units
   */
-  void CameraChangeScene(int i, int j, bool sliding = false);
+  void CameraChangeScene(int i, int j, Scene::Scene scene, bool sliding = false);
   void SceneBuild(Scene::Scene scene, int i, int j);
 
 private:
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   const sf::Color DEFAULT_CLEAR_COLOR;
-  const sf::Vector2f cameraUnit;
-
+  const sf::Vector2f cameraUnit_;
+  
+  sf::Vector2i currentSceneKey;
   sf::RenderWindow window_;
   sf::View view_;
   mv::Cache<sf::Font> font_commodore_;
