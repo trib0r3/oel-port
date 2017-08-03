@@ -1,10 +1,14 @@
 #include "Graphics.h"
 
-Graphics::Graphics()
-  :DEFAULT_CLEAR_COLOR(c64::BLACK)
+Graphics::Graphics(float cameraUnitWidth, float cameraUnitHeight)
+  :DEFAULT_CLEAR_COLOR(c64::BLACK), cameraUnit({ cameraUnitWidth ,cameraUnitHeight })
 {
   font_commodore_.get("src/resources/PetMe.ttf");
+
+  if ( cameraUnitHeight < 0 || cameraUnitWidth < 0 )
+    mv::Logger::Log("Camera unit dimensions can't be negative", mv::Logger::stream_t::CONSOLE, mv::Logger::type_t::ERROR);
 }
+
 
 void Graphics::DrawMenu(Player *) {
 
@@ -89,11 +93,11 @@ void Graphics::SetKeyboardCallback(Callback callback, int keyCode) {
 
 }
 
-void Graphics::CameraChangeScene(int x, int y, bool sliding) {
+void Graphics::CameraChangeScene(int i, int j, bool sliding) {
 
 }
 
-void Graphics::SceneBuild(Scene::Scene scene, int x, int y) {
+void Graphics::SceneBuild(Scene::Scene scene, int i, int j) {
 
 }
 

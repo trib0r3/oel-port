@@ -23,7 +23,7 @@ public:
     BlackOnWhite, WhiteOnBlack
   };
 
-  Graphics();
+  Graphics(float cameraUnitWidth, float cameraUnitHeight);
 
   void DrawMenu(Player*);
   // TODO Draw other stuff like player creation etc
@@ -43,13 +43,18 @@ public:
 
   void SetKeyboardCallback(Callback callback, int keyCode);
 
-  void CameraChangeScene(int x, int y, bool sliding = false);
-  void SceneBuild(Scene::Scene scene, int x, int y);
+  /*
+   *x;y <=> dimensions in pixels
+   *i;j <=> dimensions in camera's units
+  */
+  void CameraChangeScene(int i, int j, bool sliding = false);
+  void SceneBuild(Scene::Scene scene, int i, int j);
 
 private:
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   const sf::Color DEFAULT_CLEAR_COLOR;
+  const sf::Vector2f cameraUnit;
 
   sf::RenderWindow window_;
   sf::View view_;
