@@ -26,7 +26,7 @@ public:
   void SetLanguage(Language language);
 
   /// Returns correct string
-  std::string GetString(TranslatedString::TranslatedString ts)
+  std::string GetString( TranslatedString::TranslatedString ts );
 
 private:
   std::string translated_words_[TranslatedString::__COUNT__];
