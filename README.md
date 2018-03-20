@@ -1,9 +1,16 @@
 # Oel (port from Commodore64)
 
-More info: [here](http://szymonsiarkiewicz.pl/artykuly/relog/relog-oel-pompowacze-port-z-c64-czesc-1/)
+The purpose of this project is to create a port of game 'Oel Pompowacze'. Originally created in late 80's for Commodore64.
 
-Original source code is available locally in project [here](LISTING.md)
+The port is written using C++ and SFML library.
 
+Original source code you can find [here](LISTING.md)
+
+## Project status
+
+**(20/03/18)** Currently project is ```suspended```, but I'm going to to finish it (someday...) :P
+
+For now, almost everything have been analysed, game is waiting for someone who will finish the most boring part: ~rewrite~ finish rewriting the code to c++.
 
 ## Running project
 
@@ -32,9 +39,7 @@ Latest binaries:
 2. *Windows* (comming soon)
 
 
-## About
-
-Port of *Oel* game from Commodore64 (BASIC) to modern processors (C++ & SFML).
+## About analysis
 
 ### Files
 
@@ -49,7 +54,7 @@ Project is separated into folders:
 └── third-party
 ```
 
-Interesting for you may be:
+Interesting dirs:
 
 1. [docs](docs/) - more official notes (documentation) for Oel Port
 1. [notes](notes/) - containing files with my personal research (i.e. more priendy pseudo-basic code, similar to C code, etc.)
@@ -71,11 +76,11 @@ Why so many links? Because Commodore & BASIC is bad docummented, every page cont
 
 ## License
 
-Project is under [BSD-3](LICENSE.md) License. Except resources listed in [3rd party modules](#3rd-party)
+Project is under [BSD-3](LICENSE.md) License. Except resources listed in [3rd party modules](#3rd-party) (they have own license, go to proper section for more info).
 
 ### 3rd-party
 
-Following resources are coming from external sources:
+Following resources are coming from external sources (with own licenses):
 
 1. [PetMe Font](src/resources/Commodore-64-v6.3.ttf) is created by [KREATIVE SOFTWARE](http://www.kreativekorp.com/) | [LICENSE](third-party/PetMeFontLicense.txt)
 2. [Libs by PiGames members](src/third-party/pigames) is created by [PiGames](http://pigam.es/) | [LICENSE](third-party/third-party-sources.txt)
