@@ -4,7 +4,7 @@ The purpose of this project is to create a port of game 'Oel Pompowacze'. Origin
 
 The port is written using C++ and SFML library.
 
-Original source code you can find [here](LISTING.md)
+Original source code you can find [here](LISTING.md) and reversing description [here](https://github.com/sheadovas/blog-projects/tree/master/blog-archive/Oel-Port) (PL)
 
 ## Project status
 
